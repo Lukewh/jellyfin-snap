@@ -1,0 +1,44 @@
+name: jellyfin
+version: 10.4.3
+summary: The Free Software Media System
+description: |
+  Jellyfin is the Free Software Media System that puts you in control of managing and streaming your media. There are no strings attached, no premium licenses or features, and no hidden agendas.
+
+confinement: strict
+base: core18
+grade: stable
+
+parts:
+  jellyfin:
+    plugin: dump
+    source: https://repo.jellyfin.org/releases/server/linux/stable/jellyfin_$SNAPCRAFT_PROJECT_VERSION.portable.tar.gz
+    override-pull: |
+      snapcraftctl pull
+      chmod +x jellyfin
+    stage-packages:
+      - libasn1-8-heimdal
+      - libcurl4
+      - libfreetype6
+      - libgssapi3-heimdal
+      - libhcrypto4-heimdal
+      - libheimbase1-heimdal
+      - libheimntlm0-heimdal
+      - libhx509-5-heimdal
+      - libkrb5-26-heimdal
+      - libldap-2.4-2
+      - libnghttp2-14
+      - libpng16-16
+      - libpsl5
+      - libroken18-heimdal
+      - librtmp1
+      - libsasl2-2
+      - libwind0-heimdal
+      - icu-devtools
+
+apps:
+  jellyfin:
+    command: jellyfin
+    plugs:
+      - home
+      - network
+      - network-bind
